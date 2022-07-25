@@ -18,12 +18,12 @@ const App = () => {
 
   const handleLeaveFeedback = event => {
     const {
-      target: { name, value },
+      target: { name },
     } = event;
 
     setFeedbackData(prevState => ({
       ...prevState,
-      [name]: Number.parseInt(value) + 1,
+      [name]: Number.parseInt(prevState[name]) + 1,
     }));
   };
 
@@ -42,9 +42,9 @@ const App = () => {
       <Section title="Please leave feedback">
         <FeedbackOptions
           options={{
-            good,
-            bad,
-            neutral,
+            good: feedbackData.good,
+            bad: feedbackData.bad,
+            neutral: feedbackData.neutral,
           }}
           onLeaveFeedback={handleLeaveFeedback}
         />
@@ -52,9 +52,9 @@ const App = () => {
       <Section title="Statistics">
         {showStatistics ? (
           <Statistics
-            good={good}
-            bad={bad}
-            neutral={neutral}
+            good={feedbackData.good}
+            bad={feedbackData.bad}
+            neutral={feedbackData.neutral}
             total={countTotalFeedback()}
             positivePercentage={countPositiveFeedbackPercentage}
           />
